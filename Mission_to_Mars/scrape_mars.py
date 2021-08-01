@@ -13,7 +13,7 @@ executable_path = {'executable_path': ChromeDriverManager().install()}
 browser = Browser('chrome', **executable_path, headless=False)
 
 
-# # Scrape NASA Mars News
+# 1. Scrape NASA Mars News
 
 def mars_news(browser):
     # Visit https://redplanetscience.com/
@@ -35,7 +35,7 @@ def mars_news(browser):
         return None, None
     return latest_news_title, news_para
 
-# # Scape Featured Mars Space Image
+# 2. Scape Featured Mars Space Image
 
 def featured_image(browser):
     # Visit https://spaceimages-mars.com/
@@ -58,7 +58,7 @@ def featured_image(browser):
     return featured_image_url
 
 
-# # Scrape Mars Facts
+# 3. Scrape Mars Facts
 
 def mars_facts():
     mars_comp_df = pd.read_html('https://galaxyfacts-mars.com/')[0]
@@ -67,9 +67,8 @@ def mars_facts():
     mars_facts_df = mars_comp_df[1:].reset_index()
     mars_facts_df
 
-# # Scrape Images and Titles of Mars Hemispheres
+# 4. Scrape Images and Titles of Mars Hemispheres
 
-# In[452]:
 def hemisphere(browser):
     hem_url = "https://marshemispheres.com/"
     browser.visit(hem_url)
@@ -101,57 +100,6 @@ for item in links:
     browser.back()
 return hemisphere_image_urls
 
-# hem_url = "https://marshemispheres.com/"
-# browser.visit(hem_url)
-
-# time.sleep(1)
-
-
-# # In[453]:
-
-
-# hem_html = browser.html
-# hem_soup = bs(hem_html, "html.parser")
-
-
-# hemisphere_image_urls = []
-
-# links = browser.find_by_tag('h3')
-
-# for item in links:
-#     hemisphere = {}
-    
-#     # Loop through each element and click on hemisphere links
-#     browser.find_by_tag('h3').click()    
-        
-#     # Get hemisphere title
-#     hemisphere["title"] = browser.find_by_css("h2.title").text
-    
-#     # Get url for full resolution image of hemisphere
-#     sample_link = browser.find_by_text("Sample").first
-#     hemisphere["img_url"] = sample_link["href"]
-
-    
-#     # Append hemisphere object to list
-#     hemisphere_image_urls.append(hemisphere)
-    
-#     # Return to previous webpage
-#     browser.back()
-
-
-# # In[465]:
-
-
-# hemisphere_image_urls
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 def scrape_all():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
