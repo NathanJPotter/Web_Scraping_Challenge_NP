@@ -121,3 +121,5 @@ def scrape_all():
     browser.quit()
     return data
 
+if __name__ == "__main__":
+    print(scrape_all())
