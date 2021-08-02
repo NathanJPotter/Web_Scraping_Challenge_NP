@@ -80,25 +80,25 @@ def hemisphere(browser):
 
     links = browser.find_by_tag('h3')
 
-for item in links:
-    hemisphere = {}
-    # Loop through each element and click on hemisphere links
-    browser.find_by_tag('h3').click()    
+    for item in links:
+        hemisphere = {}
+        # Loop through each element and click on hemisphere links
+        browser.find_by_tag('h3').click()    
+            
+        # Get hemisphere title
+        hemisphere["title"] = browser.find_by_css("h2.title").text
         
-    # Get hemisphere title
-    hemisphere["title"] = browser.find_by_css("h2.title").text
-    
-    # Get url for full resolution image of hemisphere
-    sample_link = browser.find_by_text("Sample").first
-    hemisphere["img_url"] = sample_link["href"]
+        # Get url for full resolution image of hemisphere
+        sample_link = browser.find_by_text("Sample").first
+        hemisphere["img_url"] = sample_link["href"]
 
-    
-    # Append hemisphere object to list
-    hemisphere_image_urls.append(hemisphere)
-    
-    # Return to previous webpage
-    browser.back()
-return hemisphere_image_urls
+        
+        # Append hemisphere object to list
+        hemisphere_image_urls.append(hemisphere)
+        
+        # Return to previous webpage
+        browser.back()
+    return hemisphere_image_urls
 
 def scrape_all():
     executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -121,5 +121,5 @@ def scrape_all():
     browser.quit()
     return data
 
-if __name__ == "__main__":
-    print(scrape_all())
+# if __name__ == "__main__":
+#     print(scrape_all())
