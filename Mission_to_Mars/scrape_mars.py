@@ -73,15 +73,7 @@ def mars_facts():
         return None
     
     return mars_facts_html
-    
-    
-        
-    
-        
-    
-    
-    
-    
+       
 
 # 4. Scrape Images and Titles of Mars Hemispheres
 
@@ -91,31 +83,38 @@ def hemisphere(browser):
 
     hem_html = browser.html
     hem_soup = bs(hem_html, "html.parser")
+    
+    try:
+        hemisphere_image_urls = []
+        image_links = hem_soup.find_all('div', class_="item")
 
-    hemisphere_image_urls = []
-
-    links = browser.find_by_tag('h3')
-
-    for item in links:
-        hemisphere = {}
-        # Loop through each element and click on hemisphere links
-        browser.find_by_tag('h3').click()    
+        for image in range(len(image_links)):
+            hemisphere = {}
             
-        # Get hemisphere title
-        hemisphere["title"] = browser.find_by_css("h2.title").text
-        
-        # Get url for full resolution image of hemisphere
-        sample_link = browser.find_by_text("Sample").first
-        hemisphere["img_url"] = sample_link["href"]
+            # Loop through each element and click on hemisphere links
+            browser.find_by_tag('h3').click()    
 
-        
-        # Append hemisphere object to list
-        hemisphere_image_urls.append(hemisphere)
-        
-        # Return to previous webpage
-        browser.back()
+            # Get hemisphere title
+            hemisphere["title"] = browser.find_by_css("h2.title").text
+
+            # Get url for full resolution image of hemisphere
+            sample_link = browser.find_by_text("Sample").first
+            hemisphere["img_url"] = sample_link["href"]
+
+
+            # Append hemisphere object to list
+            hemisphere_image_urls.append(hemisphere)
+
+            # Return to previous webpage
+            browser.back()
+      
+    except AttributeError:
+        return None
+    
     return hemisphere_image_urls
 
+
+    
 def scrape_all():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
