@@ -25,8 +25,8 @@
                 <div class="media">
                     <div class="media-body">
                         <h4>Latest Mars News</h4>
-                        <h5 style="color: #1432dc">{{mars.latest_news_title}}</h5>
-                        <p style="color: #15008b">{{mars.news_para}}</p>
+                        <h5 style="color: #1432dc">{{ mars.latest_news_title }}</h5>
+                        <p style="color: #15008b">{{ mars.news_para }}</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                 <h4>Featured Mars Image</h4>
                     <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
-                    <img src="{{mars.featured_image_url | default('static/images/error.png', true) }}" class="img-responsive" style="max-width:100%; max-height: auto;" alt="Mars Featured Image"/>
+                    <img src="{{ mars.featured_image_url }}" class="img-responsive" style="max-width:100%; max-height: auto;" alt="Mars Featured Image"/>
                 </div>
                     <!-- Mars Facts -->
                     <br>
@@ -54,17 +54,14 @@
         <h4 style="padding-top: 50px; margin-top: 100px; text-align: center;">Mars Hemispheres</h4>
         <div class="card-deck">
             <hr>
-            <div class="col-md-12">
+            <div class="col-md-9">
                 <div class="row" id="mars-hemispheres">
                     {% for hemisphere in mars.hemispheres %}
                     <div class="col-md-6">
-                        <div class="card text-white bg-danger" style="margin: 30px;">
-                            <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
-                            <img class="card-img-top" src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="..."/>
-                            <div class="card-body">
-                                <p class="card-text">{{hemisphere.title}}</p>
-                            </div>
-                        </div>
+                        <div class="card border-primary mb-3 text-center" style="max-width: 15rem;">
+                        <grid-item><img id="mars-image" src="{{ hemisphere_image_urls }}" class="rounded"></grid-item>
+                        <br><p id="mars-title" >{{ hemisphere.title }}</p><br>
+                    </div>
                     </div>
                     {% endfor %}
                 </div>
