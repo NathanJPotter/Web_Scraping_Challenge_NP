@@ -61,11 +61,27 @@ def featured_image(browser):
 # 3. Scrape Mars Facts
 
 def mars_facts():
-    mars_comp_df = pd.read_html('https://galaxyfacts-mars.com/')[0]
-    mars_comp_df.columns = ['Mars - Earth Comparison', 'Mars', 'Earth']
-    mars_comp_df.set_index('Mars - Earth Comparison', inplace=True)
-    mars_facts_df = mars_comp_df[1:].reset_index()
-    mars_facts_df
+    try:
+        mars_comp_df = pd.read_html('https://galaxyfacts-mars.com/')[0]
+        mars_comp_df.columns = ['Mars - Earth Comparison', 'Mars', 'Earth']
+        mars_comp_df.set_index('Mars - Earth Comparison', inplace=True)
+        mars_facts_df = mars_comp_df[1:].reset_index()
+        
+        mars_facts_html = mars_facts_df.to_html(justify="left", border="1", classes="table table-sm table-striped table-dark font-weight-light text-align-left", col_space='150px')
+    
+    except AttributeErroe:
+        return None
+    
+    return mars_facts_html
+    
+    
+        
+    
+        
+    
+    
+    
+    
 
 # 4. Scrape Images and Titles of Mars Hemispheres
 
