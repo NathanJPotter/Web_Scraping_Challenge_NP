@@ -124,10 +124,10 @@ def scrape_all():
     browser = Browser('chrome', **executable_path, headless=False)
     
     latest_news_title, news_para = mars_news(browser)
-    featured_image_url = featured_image(browser)
-    mars_facts_df = mars_facts()
-    hemisphere_image_urls = hemisphere(browser)
-    timestamp = dt.datetime.now()
+    # featured_image_url = featured_image(browser)
+    # mars_facts_df = mars_facts()
+    # hemisphere_image_urls = hemisphere(browser)
+    # timestamp = dt.datetime.now()
 
     data = {
         "latest_news_title": latest_news_title,
