@@ -92,8 +92,12 @@ def hemisphere(browser):
             hemisphere = {}
             
             # Loop through each element and click on hemisphere links
-            browser.find_by_tag('h3').click()    
-
+            hem_links = browser.find_by_tag('h3')
+            hemlinks[image].click()
+            
+            hem_html = browser.html
+            hem_soup = bs(image_html, 'html.parser')
+            
             # Get hemisphere title
             hemisphere["title"] = browser.find_by_css("h2.title").text
 
@@ -113,11 +117,12 @@ def hemisphere(browser):
     
     return hemisphere_image_urls
 
-
+# This function brings results from the others together
     
 def scrape_all():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
+    
     latest_news_title, news_para = mars_news(browser)
     featured_image_url = featured_image(browser)
     mars_facts_df = mars_facts()
@@ -128,13 +133,10 @@ def scrape_all():
         "latest_news_title": latest_news_title,
         "news_para": news_para,
         "featured_image_url": featured_image(browser),
-        "mars_facts": mars_facts(),
+        "mars_facts": mars_facts_df(),
         "hemispheres": hemisphere(browser),
         "last_modified": dt.datetime.now()
     }
 
     browser.quit()
     return data
-
-# if __name__ == "__main__":
-#     print(scrape_all())
